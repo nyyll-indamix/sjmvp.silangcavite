@@ -174,115 +174,225 @@ ul li:hover > a {
 }
 
 /* BLOGS CSS */
+/* General Blog Wrapper */
 .blog {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
+/* Image Section */
 .image-section {
-    height: auto;
-    overflow: hidden;
+  aspect-ratio: 1 / 1; /* Makes the section square */
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .image-section img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 1s ease;
+}
+.image-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Yellow tint with transparency */
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none; /* Prevent blocking clicks */
 }
 
+/* Hover effect */
+.card:hover .image-section::after {
+  opacity: 1;
+}
+.card:hover .image-section img {
+    background: rgba(255, 217, 0);
+  transform: scale(1.20);
+}
+/* Main Container */
 .container {
-    width: 100%;
+  width: 100%;
 }
 
+/* Blog Section */
 .blog-section {
-    width: 100%;
-    
-    
+  width: 100%;
+  padding: 50px 20px;
 }
 
 .blog-section .title {
-    width: 60%;
-    text-align: center;
-    margin: auto;
+  width: 60%;
+  text-align: center;
+  margin: auto;
 }
 
 .blog-section .title h2 {
-    font-size: 40px;
-    text-transform: uppercase;
-    margin-top: 50px;
-    color: white;
+  font-size: 40px;
+  text-transform: uppercase;
+  margin-top: 50px;
+  color: white;
 }
 
 .blog-section .title p {
-    font-size: 18px;
-    margin-top: 20px;
-    color:white;
+  font-size: 18px;
+  margin-top: 20px;
+  color: white;
 }
 
+/* Cards Grid */
 .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 50px 20px;
-    margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin: 0 auto;
+  padding-top: 50px;
 }
 
-.cards .card {
-    flex: 0 0 30%;
-    max-width: 400px;
-    position: relative;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-    transition: 1s ease;
+/* Individual Card */
+.card {
+  flex: 0 0 30%;
+  max-width: 400px;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 5px;
+
+  border: 3px solid transparent; /* Reserve space for border */
+  box-sizing: border-box; 
+ 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+     transform: scale(1.05);
+    border: 3px solid #FFD900;     /* Yellow border on hover */
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5); /* Optional shadow glow */
 
 }
-.cards .card:hover {
-    flex: 0 0 30%;
-    max-width: 400px;
-    position: relative;
-    background: white;
-    border-radius: 5px;
-    outline: 5px solid rgb(255, 255, 255);
-}
+
+/* Card Content */
 .content2 {
-    padding: 15px 20px;
+  position: relative;
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
+/* Card Title */
 .content2 h4 {
-    font-size: 24px;
-    color: rgb(96, 40, 0);
-    font-weight: 500;
+  font-size: 20px;
+  color: rgb(96, 40, 0);
+  font-weight: 600;
+
+  /* Truncate long titles */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  height: calc(1.3em * 3); /* 3 lines */
+  margin-bottom: 12px;
 }
 
+/* Card Paragraph */
 .content2 p {
-    color: rgb(0, 0, 0);
-    font-size: 15px;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
-.content2 a {
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    margin-top: 12px;
-    display: inline-block;
-    background-color: rgb(255, 217, 0);
-    padding: 8px 15px;
-    transition: 0.3s ease;
+/* Posted Date Label */
+.posted-date {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 217, 0);
+  padding: 6px 15px;
+  font-size: 13px;
+  color: #000;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
-.content2 a:hover{
-    background-color: rgb(254, 173, 0);
-    color: rgb(255, 255, 255);
+/* Read More overlay inside content2 */
+.read-more-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(150px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+  z-index: 2;
+  padding: 20px;
+  pointer-events: none; /* Prevent interaction when hidden */
 }
-.card .posted-date {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    background-color: rgb(255, 217, 0);
-    padding: 6px 15px;
-    color:rgb(0, 0, 0);
+
+/* Hover effect only on content section */
+.card:hover .read-more-overlay {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto; /* Enable interaction when visible */
 }
+
+.read-more-overlay a {
+  background-color: rgb(255, 196, 0);
+  color: #7c3800; /* Text color */
+  text-decoration: none;
+  width: 140px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+
+/* Optional hover effect */
+.read-more-overlay a:hover {
+  background-color: rgb(255, 153, 0);
+  color: rgb(255, 255, 255);
+
+
+  
+}
+
+/* Ensure content2 has relative positioning */
+.content2 {
+  position: relative;
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 1100px) {
